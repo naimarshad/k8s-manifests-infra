@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod-test
+spec:
+  volumes:
+    - name: pv-for-pod
+      persistentVolumeClaim:
+        claimName: nfs-pvc-grafana
+  containers:
+    - name: container-for-pv
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: pv-for-pod
+
